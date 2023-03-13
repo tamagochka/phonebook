@@ -1,0 +1,9 @@
+
+.leaf:not(.collapsed)::after {
+    background-image: none;
+}
+
+.leaf::after {
+    background-image: none;
+}
+
