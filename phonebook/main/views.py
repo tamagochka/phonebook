@@ -19,8 +19,12 @@ def get_data(request):
         # rank = Ranks.objects.order_by('id')[1]
         # print(rank)
 
-        person = Abonents.objects.order_by('id')[1]
-        print(person)
+        # person = Abonents.objects.order_by('id')[1]
+        # print(person)
+
+        department = Departments.objects.order_by('id')[1]
+        print(department)
+
 
         response = {
             'answer': 'test',
