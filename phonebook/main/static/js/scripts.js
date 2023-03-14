@@ -1,5 +1,6 @@
 function buildAccordion(place_id, data) {
 
+
     for(var i = 0; i < data; i++) {
         var div_accordion_item = $('<div>', {
             class: 'accordion-item'
@@ -41,35 +42,34 @@ function buildAccordion(place_id, data) {
 
 }
 
-function getData() {
-
+// request_type:
+// 'get' - запрос конкретного отдела в качестве запроса указывается id отдела
+// 'search' - поиск по введенному значению в качестве запроса указывается введенное значение
+function getData(request_type, request) {
+    var result = null;
+    var dict = {};
+    dict[request_type] = request;
     $.ajax({
         type: 'POST',
         url: 'get_data/',
-        data: {
-            'req': 'req_content',
-        },
+        async: false,
+        data: dict,
         success: function(response) {
-            alert(response.answer);
+            result = JSON.parse(response.response);
         },
-
         error: function(response) {
-            alert(response.responseJSON.errors);
+            result = response.responseJSON.errors;
         }
-
-
     });
+    return result;
 }
 
+$(document).ready(function() { // при загрузке страницы
+
+    data = getData('get', '3'); // запрос корня справочника
+//    alert(data.departments[0].title);
 
 
-
-
-
-$(document).ready(function() {
-
-
-    getData();
 
     buildAccordion('#phonebook_list', 10);
 
