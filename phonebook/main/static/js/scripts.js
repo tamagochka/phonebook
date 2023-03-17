@@ -1,43 +1,66 @@
-function buildAccordion(place_id, data) {
+var onClickHeader = (event) => {
+    alert($(event.target).parent().parent().prop('id'));
+    // подгружаем из базы эл-ты у которых dapartment и parent_id == id
+    // и рисуем новый вложенный баян
 
 
-    for(var i = 0; i < data; i++) {
-        var div_accordion_item = $('<div>', {
-            class: 'accordion-item'
-        });
-        var h4_accordion_header = $('<h4>', {
-            class: 'accordion-header',
-            id: 'heading-' + i
-        });
-        var button_accordion_button = $('<button>', {
-            text: 'button ' + i,
+
+
+
+}
+
+
+function buildAccordionItem(place_id, header_text, id) {
+
+    var accordion_item = $('<div>', {
+        class: 'accordion-item',
+        id: id
+    });
+    var accordion_header = $('<h4>', {
+        class: 'accordion-header',
+        id: 'heading-' + id
+    });
+    accordion_header.append(
+        $('<button>', {
+            text: header_text,
             type: 'button',
             class: 'accordion-button collapsed',
             'data-bs-toggle': 'collapse',
-            'data-bs-target': '#collapse-' + i,
+            'data-bs-target': '#collapse-' + id,
             'aria-expanded': 'false',
-            'aria-controls': 'collapse-' + i
-        });
-        var div_accordion_collapse = $('<div>', {
-            id: 'collapse-' + i,
-            class: 'accordion-collapse collapse',
-            'aria-labelledby': 'heading-' + i,
-        });
-        var div_accordion_body = $('<div>', {
-            id: 'accordion-body-' + i,
+            'aria-controls': 'collapse-' + id
+        }).on({
+            click: onClickHeader
+        })
+    );
+    accordion_item.append(accordion_header);
+    var accordion_body = $('<div>', {
+        id: 'collapse-' + id,
+        class: 'accordion-collapse collapse',
+        'aria-labelledby': 'heading-' + id
+    });
+    accordion_body.append(
+        $('<div>', {
+            id: 'accordion-body-' + id,
             class: 'accordion-body',
-            text: 'some little text'
-        });
+            text: 'stub'
+        })
+    );
+    accordion_item.append(accordion_body);
+    accordion_item.appendTo(place_id);
+
+}
 
 
-        h4_accordion_header.append(button_accordion_button);
-        div_accordion_item.append(h4_accordion_header);
-        div_accordion_collapse.append(div_accordion_body);
-        div_accordion_item.append(div_accordion_collapse);
+function buildAccordion(place_id, data) {
 
-        div_accordion_item.appendTo(place_id);
-
+//    for(var i = 0; i < data.abonents.length; i++) {
+//        buildAccordionItem(place_id, 'some_text', i);
+//    }
+    for(var i = 0; i < data.departments.length; i++) {
+        buildAccordionItem(place_id, data.departments[i].title, data.departments[i].id);
     }
+
 
 
 }
@@ -66,12 +89,9 @@ function getData(request_type, request) {
 
 $(document).ready(function() { // при загрузке страницы
 
-    data = getData('get', '3'); // запрос корня справочника
-//    alert(data.departments[0].title);
+    var data = getData('get', '3'); // запрос корня справочника
 
-
-
-    buildAccordion('#phonebook_list', 10);
+    buildAccordion('#phonebook_list', data);
 
 });
 
