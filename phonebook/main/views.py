@@ -19,17 +19,15 @@ def get_data(request):
         response = {}
         if data_get != None:
             data = list(Abonents.objects.filter(department=data_get).order_by('id').values())
+            for item in data:
+                item['rank'] = Ranks.objects.get(id=item['rank']).rank
             response['abonents'] = data
             data = list(Departments.objects.filter(parent_id=data_get).order_by('id').values())
             response['departments'] = data
-
         if data_search != None:
             print('search')
-
         print(response)
-
         json_response = {'response': json.dumps(response)}
-        print(json_response)
         return JsonResponse(json_response, status=200)
     else:
         return JsonResponse({'errors': 'error'}, status=400)

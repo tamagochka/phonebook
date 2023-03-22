@@ -1,17 +1,14 @@
+
 var onClickHeader = (event) => {
-    alert($(event.target).parent().parent().prop('id'));
-    // подгружаем из базы эл-ты у которых dapartment и parent_id == id
-    // и рисуем новый вложенный баян
-
-
-
-
-
+    var accordion_item = $(event.target).parent().parent();
+    var id = accordion_item.prop('id');
+    var body = accordion_item.find('.accordion-body')
+    var data = getData('get', id); // запрос данных из справочника
+    buildAccordion('#' + body.prop('id'), data);
 }
 
 
-function buildAccordionItem(place_id, header_text, id) {
-
+buildAccordionBranch = (place_id, header_text, id) => {
     var accordion_item = $('<div>', {
         class: 'accordion-item',
         id: id
@@ -43,32 +40,69 @@ function buildAccordionItem(place_id, header_text, id) {
         $('<div>', {
             id: 'accordion-body-' + id,
             class: 'accordion-body',
-            text: 'stub'
         })
     );
     accordion_item.append(accordion_body);
     accordion_item.appendTo(place_id);
-
 }
 
 
-function buildAccordion(place_id, data) {
+buildAccordionLeaf = (place_id, item_data, id) => {
+    var accordion_item = $('<div>', {
+        class: 'accordion-item',
+        id: id
+    });
+    var accordion_header = $('<h4>', {
+        class: 'accordion-header',
+    });
+    accordion_header.append(
+        $('<div>', {
+            class: 'accordion-button collapsed',
+            style: '--bs-accordion-btn-icon: none'
+        }).append(
+            '<table cellpadding="10px" width="100%" align="left">' +
+                '<tr style="border: none">' +
+                    '<td align="left" valign="center" width="15%" style="border-right: solid 1px #DEE2E6">' +
+                        item_data.post +
+                    '</td>' +
+                    '<td align="left" valign="center" width="15%" style="border-right: solid 1px #DEE2E6">' +
+                        item_data.surname + '<br>' + item_data.name + ' ' + item_data.patronymic +
+                    '</td>' +
+                    '<td align="center" valign="center" width="10%" style="border-right: solid 1px #DEE2E6">' +
+                        item_data.rank +
+                    '</td>' +
+                    '<td align="center" valign="center" width="10%" style="border-right: solid 1px #DEE2E6">' +
+                        item_data.extension_number +
+                    '</td>' +
+                    '<td align="center" valign="center" width="10%">' +
+                        item_data.landline_number +
+                    '</td>' +
+                '</tr>' +
+            '</table>'
+        )
+    );
+    accordion_item.append(accordion_header);
+    accordion_item.appendTo(place_id);
+}
 
-//    for(var i = 0; i < data.abonents.length; i++) {
-//        buildAccordionItem(place_id, 'some_text', i);
-//    }
-    for(var i = 0; i < data.departments.length; i++) {
-        buildAccordionItem(place_id, data.departments[i].title, data.departments[i].id);
+
+buildAccordion = (place_id, data) => {
+
+    for(var i = 0; i < data.abonents.length; i++) {
+        buildAccordionLeaf(place_id, data.abonents[i], data.abonents[i].id);
     }
 
-
+    for(var i = 0; i < data.departments.length; i++) {
+        buildAccordionBranch(place_id, data.departments[i].title, data.departments[i].id);
+    }
 
 }
+
 
 // request_type:
 // 'get' - запрос конкретного отдела в качестве запроса указывается id отдела
 // 'search' - поиск по введенному значению в качестве запроса указывается введенное значение
-function getData(request_type, request) {
+getData = (request_type, request) => {
     var result = null;
     var dict = {};
     dict[request_type] = request;
@@ -77,21 +111,18 @@ function getData(request_type, request) {
         url: 'get_data/',
         async: false,
         data: dict,
-        success: function(response) {
+        success: (response) => {
             result = JSON.parse(response.response);
         },
-        error: function(response) {
+        error: (response) => {
             result = response.responseJSON.errors;
         }
     });
     return result;
 }
 
-$(document).ready(function() { // при загрузке страницы
-
-    var data = getData('get', '3'); // запрос корня справочника
-
+$(document).ready(() => { // при загрузке страницы
+    var data = getData('get', '0'); // запрос корня справочника
     buildAccordion('#phonebook_list', data);
-
 });
 
