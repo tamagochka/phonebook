@@ -3,8 +3,11 @@ var onClickHeader = (event) => {
     var accordion_item = $(event.target).parent().parent();
     var id = accordion_item.prop('id');
     var body = accordion_item.find('.accordion-body')
-    var data = getData('get', id); // запрос данных из справочника
-    buildAccordion('#' + body.prop('id'), data);
+    if(!body.hasClass('.loaded')) {
+        var data = getData('get', id); // запрос данных из справочника
+        buildAccordion('#' + body.prop('id'), data);
+        body.addClass('.loaded');
+    }
 }
 
 
@@ -120,6 +123,7 @@ getData = (request_type, request) => {
     });
     return result;
 }
+
 
 $(document).ready(() => { // при загрузке страницы
     var data = getData('get', '0'); // запрос корня справочника
