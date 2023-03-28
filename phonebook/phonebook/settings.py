@@ -20,11 +20,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+# TODO: тзменить на загрузку из файла или переменной среды
+# import os
+# SECRET_KEY = os.environ['SECRET_KEY']
+# или
+# with open('/etc/secret_key.txt') as f:
+#     SECRET_KEY = f.read().strip()
 SECRET_KEY = 'django-insecure-7vu=#*peay@n-kn2_zv=uec*85$krs!bts_ja@xshk1ahkk4j5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# TODO: установить в False при деплое!
 DEBUG = True
-
+# TODO: установить значения DNS-имен по которым будет вызываться сайт phonebook.orui.ru
 ALLOWED_HOSTS = []
 
 
@@ -74,7 +81,7 @@ WSGI_APPLICATION = 'phonebook.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-
+# TODO: пароль от базы данных тоже необходимо спрятать
 DATABASES = {
     # 'default': {
     #     'ENGINE': 'django.db.backends.sqlite3',
@@ -131,3 +138,8 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# TODO: установить при https
+#SESSION_COOKIE_SECURE = True
+
+# TODO: проверка на правильность настроек:
+# python manage.py check --deploy
