@@ -1,12 +1,23 @@
 from openpyxl import load_workbook
 
 import mysql.connector
+import sys
+import argparse
 
-path_to_excel_file = 'C:/Users/tamagochka/OneDrive/Рабочий стол/тлф.xlsx'
-host_db = '127.0.0.1'
-user_db = 'phonebook'
-pass_db = 'phonebook'
-name_db = 'phonebook'
+parser = argparse.ArgumentParser()
+parser.add_argument('-f', '--file', default='phones.xlsx', type=str, help='Путь до файла Excel.')
+parser.add_argument('-s', '--server', default='localhost', type=str, help='Сервер базы данных.')
+parser.add_argument('-u', '--user', default='root', type=str, help='Пользователь базы данных.')
+parser.add_argument('-p', '--password', default='password', type=str, help='Пароль от базы данных.')
+parser.add_argument('-b', '--base', default='phonebook', type=str, help='Имя базы данных.')
+args = parser.parse_args(sys.argv[1:])
+
+# 'C:/Users/tamagochka/OneDrive/Рабочий стол/тлф.xlsx'
+path_to_excel_file = args.file
+host_db = args.server
+user_db = args.user
+pass_db = args.password
+name_db = args.base
 
 db = mysql.connector.connect(host=host_db, user=user_db, password=pass_db, database=name_db)
 cursor = db.cursor()
