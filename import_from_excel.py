@@ -107,7 +107,7 @@ if answer.upper() == 'Y':
 # внести в базу абонентов
 answer = input('внести в базу данных абонентов? [y/N]: ')
 if answer.upper() == 'Y':
-    get_rank_id_query = 'SELECT `id` FROM `ranks` WHERE rank=%s'
+    get_rank_id_query = 'SELECT `id` FROM `ranks` WHERE `rank`=%s'
     get_department_id_query = 'SELECT `id` FROM departments WHERE title=%s'
     insert_abonent_query = 'INSERT INTO abonents' \
         '(`post`, `surname`, `name`, `patronymic`, `rank`, `extension_number`, `landline_number`, `department`) VALUES'\
