@@ -26,8 +26,10 @@ def get_data(request):
             response['departments'] = data
         if data_search != None:
             print('search')
-        print(response)
+        # print(response)
         json_response = {'response': json.dumps(response)}
         return JsonResponse(json_response, status=200)
     else:
         return JsonResponse({'errors': 'error'}, status=400)
+
+# python ./manage.py runserver 0.0.0.0:8000 - запуск сервера

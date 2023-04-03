@@ -1,3 +1,6 @@
+# использование скрипта
+# python ./import_from_excel.py -f "phones.xlsx" -s 127.0.0.1 -u phonebook -p "password" -b phonebook
+
 from openpyxl import load_workbook
 
 import mysql.connector
