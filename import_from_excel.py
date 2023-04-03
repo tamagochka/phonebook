@@ -23,6 +23,23 @@ db = mysql.connector.connect(host=host_db, user=user_db, password=pass_db, datab
 cursor = db.cursor()
 
 wb = load_workbook(filename=path_to_excel_file)
+
+
+wb.active = 1
+ws = wb.active
+
+answer = input('внести в базу названия рангов? [y/N]: ')
+if answer.upper() == 'Y':
+    insert_query = 'INSERT INTO ranks (id, rank) VALUES (%(id)s, %(rank)s)'
+    for row in ws.iter_rows():
+        rank = {
+            'id': row[0].value,
+            'rank': row[1].value if row[1].value else ''
+        }
+        cursor.execute(insert_query, rank)
+    db.commit()
+
+
 wb.active = 0
 ws = wb.active
 
