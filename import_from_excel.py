@@ -30,7 +30,7 @@ ws = wb.active
 
 answer = input('внести в базу названия рангов? [y/N]: ')
 if answer.upper() == 'Y':
-    insert_query = 'INSERT INTO ranks (id, rank) VALUES (%(id)s, %(rank)s)'
+    insert_query = 'INSERT INTO ranks (`id`, `rank`) VALUES (%(id)s, %(rank)s)'
     for row in ws.iter_rows():
         rank = {
             'id': row[0].value,
@@ -46,7 +46,7 @@ ws = wb.active
 answer = input('внести в базу названия подразделений? [y/N]: ')
 if answer.upper() == 'Y':
     parent_id = 0
-    insert_query = 'INSERT INTO departments (title, parent_id) VALUES (%(title)s, %(parent_id)s)'
+    insert_query = 'INSERT INTO departments (`title`, `parent_id`) VALUES (%(title)s, %(parent_id)s)'
     get_id_query = 'SELECT id FROM departments WHERE title=%s'
     # заполняем таблицу с названиями подразелений
     for row in ws.iter_rows():
@@ -110,7 +110,7 @@ if answer.upper() == 'Y':
     get_rank_id_query = 'SELECT id FROM ranks WHERE rank=%s'
     get_department_id_query = 'SELECT id FROM departments WHERE title=%s'
     insert_abonent_query = 'INSERT INTO abonents' \
-        '(post, surname, name, patronymic, rank, extension_number, landline_number, department) VALUES' \
+        '(`post`, `surname`, `name`, `patronymic`, `rank`, `extension_number`, `landline_number`, `department`) VALUES'\
         '(%(post)s, %(surname)s, %(name)s, %(patronymic)s, %(rank)s,' \
         '%(extension_number)s, %(landline_number)s, %(department)s)'
     department_id = 0
