@@ -80,7 +80,7 @@ if answer.upper() == 'Y':
 # в таблице ranks базы данных
 answer = input('проверить название рангов в файле на соответствие базе? [y/N]: ')
 if answer.upper() == 'Y':
-    query = 'SELECT rank FROM ranks'
+    query = 'SELECT `rank` FROM ranks'
     cursor.execute(query)
     ranks = cursor.fetchall()
     ranks = [rank[0] for rank in ranks]
@@ -107,8 +107,8 @@ if answer.upper() == 'Y':
 # внести в базу абонентов
 answer = input('внести в базу данных абонентов? [y/N]: ')
 if answer.upper() == 'Y':
-    get_rank_id_query = 'SELECT id FROM ranks WHERE rank=%s'
-    get_department_id_query = 'SELECT id FROM departments WHERE title=%s'
+    get_rank_id_query = 'SELECT `id` FROM ranks WHERE rank=%s'
+    get_department_id_query = 'SELECT `id` FROM departments WHERE title=%s'
     insert_abonent_query = 'INSERT INTO abonents' \
         '(`post`, `surname`, `name`, `patronymic`, `rank`, `extension_number`, `landline_number`, `department`) VALUES'\
         '(%(post)s, %(surname)s, %(name)s, %(patronymic)s, %(rank)s,' \
