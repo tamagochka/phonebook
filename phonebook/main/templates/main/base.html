@@ -18,82 +18,22 @@
 
 </head>
 <body>
-    <div style="width: 1000px; margin: 0 auto">
-
-        <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+        <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom fixed-top bg-white">
             <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
                 <img src="{% static 'images/emblem.png' %}" width="50" height="50" alt="emblem" style="margin: 0px 10px">
                 <span class="fs-4">{% block caption %}{% endblock %}</span>
             </a>
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-                <input type="search" class="form-control" placeholder="Поиск..." aria-label="Search" style="width: 400px">
+                <input id = "phonebook_search" type="search" class="form-control" placeholder="Поиск..." aria-label="Search" style="width: 400px">
             </form>
             <div class="col-md-3 text-end">
                 <button type="button" class="btn btn-outline-primary me-2">Вход</button>
             </div>
         </header>
-
-        <div id="phonebook_list" class="accordion">
-
-
-
-        </div>
-
-
-
-<!--<br><br><br><br>-->
-
-<!--        <div class="accordion">-->
-<!--            <div class="accordion-item">-->
-<!-- accordion-button collapsed - положение стрелочки на кнопке вниз (элемент закрыт) -->
-<!-- accordion-button - стрелочка вверх (элемент открыт) -->
-<!-- data-bs-toggle="collapse" - вызов js для закрытия/открытия элемента при нажатии на кнопку -->
-<!-- aria-expanded="false" - свернуто или развернуто тело элемента -->
-<!--                <h4 class="accordion-header" id = "headingOne">-->
-<!-- aria-expanded="false" aria-controls="collapseOne" - удалил из строки ниже, работает и без этого -->
-<!--                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">-->
-<!--                        Accordion Item #1-->
-<!--                    </button>-->
-<!--                </h4>-->
-<!-- accordion-collapse collapse - элемент закрыт -->
-<!-- accordion-collapse collapse show - элемент открыт -->
-<!-- aria-labelledby="headingOne" data-bs-parent="#accordionExample" style="" - удалил из строки ниже, работает и без этого-->
-<!--                <div id="collapseOne" class="accordion-collapse collapse">-->
-<!--                    <div class="accordion-body">-->
-
-<!-- вложенный элемент лист -->
-<!--                        <div class="accordion-item">-->
-<!--                            <h4 class="accordion-header">-->
-<!--                                <button class="accordion-button collapsed leaf" type="button"  data-bs-toggle="collapse">-->
-<!--                                    text-->
-<!--                                </button>-->
-<!--                            </h4>-->
-<!--                        </div>-->
-
-<!-- вложенный элемент аккордеон -->
-<!--                        <div class="accordion-item">-->
-<!--                            <h4 class = "accordion-header">-->
-<!--                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne-One">-->
-<!--                                    Accordion Item #1-1-->
-<!--                                </button>-->
-<!--                            </h4>-->
-<!--                            <div id="collapseOne-One" class="accordion-collapse collapse">-->
-<!--                                <div class="accordion-body">-->
-<!--                                    test-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-
-
-<!--                    </div>-->
-<!--               </div>-->
-<!--            </div>-->
-<!--        </div>-->
-
-
-
-    </div>
-
-
+        <main class="container" style="margin-top: 96px">
+            <div id="phonebook_list" class="accordion">
+            <!-- place for phonebook -->
+            </div>
+        </main>
 </body>
 </html>

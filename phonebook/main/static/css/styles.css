@@ -1,5 +1,4 @@
-
-.leaf:not(.collapsed)::after {
+leaf:not(.collapsed)::after {
     background-image: none;
 }
 
